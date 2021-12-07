@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -26,6 +26,7 @@ export class HotelComponent implements OnInit {
   hotels ?: Array<Hotel>;
   errorMessage = "";
   success: boolean = false;
+  @ViewChild('closebutton') closebuttonelement: any;
 
   constructor(private hotelService: HotelService, private router: Router) { }
 
@@ -95,6 +96,7 @@ export class HotelComponent implements OnInit {
     obs.subscribe({
       next: (data) => {
         this.loadAll();
+        this.closebuttonelement.nativeElement.click();
         this.showSuccess();
       },
       error: (err) => { this.showError(err.error.message) }

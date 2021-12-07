@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { timeOutMessage } from 'src/environments/environment';
+import { Client } from '../classes/client/client';
 import { Resa } from '../classes/resa/resa';
+import { ClientService } from '../services/client/client.service';
 import { ResaService } from '../services/resa/resa.service';
 
 @Component({
@@ -12,14 +14,16 @@ import { ResaService } from '../services/resa/resa.service';
 export class ResasComponent implements OnInit {
 
   resas?:Array<Resa>;
+  clients: Array<Client> = [];
   errorMessage = "";
   success: boolean = false;
-  searchVar :string = "";
+  clientRecherche : number = 0
 
-  constructor(private resaService:ResaService, private router:Router) { }
+  constructor(private resaService:ResaService, private router:Router, private clientService:ClientService) { }
 
   ngOnInit(): void {
-    this.loadAll();
+    this.loadAllResa();
+    this.loadAllClient();
   }
 
   showSuccess(): void {
@@ -36,13 +40,16 @@ export class ResasComponent implements OnInit {
     }, timeOutMessage)
   }
 
-  search(){
-
-  }
-
-  loadAll(){
-    this.resaService.getAll().subscribe({
+  loadAllResa(){
+    this.resaService.getAll(this.clientRecherche).subscribe({
       next: (data) => { this.resas = data },
+      error: (err) => { this.showError(err.error.message) }
+    })
+  }
+  
+  loadAllClient(){
+    this.clientService.getAll().subscribe({
+      next: (data) => { this.clients = data },
       error: (err) => { this.showError(err.error.message) }
     })
   }
@@ -50,7 +57,7 @@ export class ResasComponent implements OnInit {
   delete(id?:number){
     this.resaService.delete(id).subscribe({
       next: (data) => {
-        this.loadAll();
+        this.loadAllResa();
         this.showSuccess();
       },
       error: (err) => { this.showError(err.error.message) }

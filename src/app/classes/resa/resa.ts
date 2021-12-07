@@ -5,7 +5,7 @@ export class Resa {
     id?:number
     datedeb?:Date
     datefin?:Date
-    numChamber?:number
+    numChambre?:number
     client?:Client
     hotel?:Hotel
 }

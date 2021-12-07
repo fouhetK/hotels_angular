@@ -52,17 +52,17 @@ export class ResasDetailsComponent implements OnInit {
 
   loadAll() {
     this.loadAllHotel();
-    this.loadAllClient();  
+    this.loadAllClient();
   }
 
-  loadAllHotel(){
+  loadAllHotel() {
     this.hotelService.getAll().subscribe({
       next: (data) => { this.hotels = data },
       error: (err) => { this.showError(err.error.message) }
     })
   }
 
-  loadAllClient(){
+  loadAllClient() {
     this.clientService.getAll().subscribe({
       next: (data) => { this.clients = data },
       error: (err) => { this.showError(err.error.message) }
@@ -77,13 +77,16 @@ export class ResasDetailsComponent implements OnInit {
     return (h1?.id === h2?.id)
   }
 
-  goBack(){
-    this.router.navigate(['resas'])
+  goBack() {
+    if (this.resaForm.controls['id']?.value == "")
+      this.router.navigate(['resas'])
+    else
+      this.resetForm();
   }
 
-  resetForm(){
+  resetForm() {
     this.resaForm = new FormGroup({
-      id: new FormControl("", Validators.required),
+      id: new FormControl(""),
       datedeb: new FormControl("", Validators.required),
       datefin: new FormControl("", Validators.required),
       numChambre: new FormControl("", Validators.required),
@@ -106,7 +109,9 @@ export class ResasDetailsComponent implements OnInit {
         this.resetForm();
         this.router.navigate(['resas'])
       },
-      error: (err) => { this.showError(err.error.message) }
+      error: (err) => {
+        this.showError(err.error.message)
+      }
     })
   }
 

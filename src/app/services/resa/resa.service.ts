@@ -14,8 +14,8 @@ export class ResaService {
 
   constructor( private http : HttpClient , private config : ConfigService) { }
 
-  getAll(searchValue?:string) : Observable<Resa[]>{
-    return this.http.get<Resa[]>(environment.backendUri + this.serviceUri + (searchValue != undefined ? "?search=" + searchValue : ""), this.config.httpOptions);
+  getAll(searchValue?:number) : Observable<Resa[]>{
+    return this.http.get<Resa[]>(environment.backendUri + this.serviceUri + (searchValue != undefined ? "?client=" + searchValue : ""), this.config.httpOptions);
   }
 
   getById(id?:number) : Observable<Resa>{
