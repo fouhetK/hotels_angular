@@ -27,10 +27,10 @@ export class ResaService {
   }
 
   update(resa?:Resa) : Observable<any>{
-    return this.http.post(environment.backendUri + this.serviceUri + "/" + resa?.id, resa, this.config.httpOptions);
+    return this.http.put(environment.backendUri + this.serviceUri + "/" + resa?.id, resa, this.config.httpOptions);
   }
 
   delete(id?:number) : Observable<any>{
-    return this.http.delete(environment.backendUri + this.serviceUri+id, this.config.httpOptions);
+    return this.http.delete(environment.backendUri + this.serviceUri + "/" + id, this.config.httpOptions);
   }
 }

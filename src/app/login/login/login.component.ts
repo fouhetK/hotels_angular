@@ -18,7 +18,11 @@ export class LoginComponent implements OnInit {
   password : string = ""
 
   constructor(private http : HttpClient, private router : Router, private app : AppComponent, private guard: AuthGuard
-    , private config: ConfigService) { }
+    , private config: ConfigService) {
+      if (guard.authenticated()){
+        this.router.navigate(['hotels'])
+      }
+    }
 
   ngOnInit(): void {
   }
@@ -33,7 +37,6 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem("connected" , "1" );
           sessionStorage.setItem("user" , JSON.stringify(data));
           this.app.user = data
-          console.log(data)
           this.config.httpOptions = {
             headers : new HttpHeaders({
               'Authorization' : "Basic " + data.password 

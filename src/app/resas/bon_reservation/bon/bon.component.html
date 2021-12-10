@@ -1,0 +1,49 @@
+<main class="container">
+    <div>
+        <h2 class="border border-3 d-flex justify-content-center">Bon de réservation numéro : {{resa?.id}}</h2>
+    </div>
+    <br><br><br>
+    <h3><u>Réservation au nom de :</u></h3>
+    <div class="h6"><span>Mr {{resa?.client?.nomComplet}}</span> - <span>{{resa?.client?.adresse}}</span></div>
+    <div class="h6"><span>Tél : {{resa?.client?.telephone}}</span> - <span> Mail : {{resa?.client?.email}}</span></div>
+    <br>
+    <h3><u>Informations sur l'hôtel :</u></h3>
+    <div class="h6"><span>{{resa?.hotel?.nom}} {{resa?.hotel?.etoiles}}* - {{resa?.hotel?.adresse}} - {{resa?.hotel?.ville}}</span></div>
+    <div class="h6"><span>Tél : {{resa?.hotel?.telephone}}</span> - <span> Mail : {{resa?.hotel?.email}}</span></div>
+    <br>
+    <h3><u>Informations sur le séjour :</u></h3>
+    <div class="h6"><span></span></div>
+    <table width="100%">
+        <tr class="h6">
+            <td>
+                Date d'arrivée : {{resa?.datedeb | date:'dd/MM/YYYY'}}
+            </td>
+            <td>
+                Date départ : {{resa?.datefin | date:'dd/MM/YYYY'}}
+            </td>
+            <td>
+                Nombre de nuit(s) : {{getNbrDay()}}
+            </td>
+        </tr>
+        <tr class="h6">
+            <td>
+                Heure d'arrivée à partir de : 12:00
+            </td>
+            <td>
+                Heure de départ avant : 11:00
+            </td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <div>
+        <div class="border border-2">
+            Prestations
+        </div>
+        <div class="border border-2">
+            Chambre n°{{resa?.numChambre}} pour une personne
+            Formule : Pension Complète
+        </div>
+    </div>
+
+</main>

@@ -29,13 +29,21 @@
         <div class="card-body">
             <div class="d-flex justify-content-between">
                 <div class="mr-auto p-2">
-                    <h5 class="card-title">{{hotel.nom}} - {{hotel.etoiles}} étoiles</h5>
+                    <div>
+                        <span *ngFor="let a of arrayStars; let iteration = index;">
+                            <i *ngIf="iteration < hotel.etoiles" class="fas fa-star" style="color: blue;"
+                                aria-hidden="true"></i>
+                            <i *ngIf="iteration >= hotel.etoiles" class="fas fa-star"
+                                style="color: rgba(139, 139, 139, 0.904);" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <h5 class="card-title">{{hotel.nom}}<i class="fa-solid fa-square-star"></i></h5>
                 </div>
-                <div class="ml-auto p-2">
+                <div class="ml-auto p-2 align-self-center">
                     <button class="btn btn-secondary btn-sm" (click)="loadById(hotel.id)" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop"><i
-                            class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                    <button class="btn btn-danger btn-sm" (click)="delete(hotel.id)"><i class="fa fa-trash-o"
+                        data-bs-target="#staticBackdrop"><i class="fas fa-pencil-square-o"
+                            aria-hidden="true"></i></button>
+                    <button class="btn btn-danger btn-sm align-middle" (click)="delete(hotel.id)"><i class="fas fa-trash"
                             aria-hidden="true"></i></button>
                 </div>
             </div>
@@ -50,7 +58,8 @@
                 <h2 class="h5">Adresse</h2>
                 <p>{{hotel.adresse }} - {{hotel.ville}}</p>
                 <!-- <p *ngFor="let rdv of rdvs[patient.id]">Rdv: {{rdv.dateheure | date:'dd/MM/yyyy HH:mm'}}</p> -->
-
+                <button class="btn btn-primary btn-sm" [routerLink]="['image' , hotel?.id ]">Liste des images</button>
+                
             </div>
         </div>
     </div>
@@ -63,8 +72,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel" *ngIf="hotelForm.controls['id'].value == undefined">Ajouter un hotel</h5>
-                <h5 class="modal-title" id="staticBackdropLabel" *ngIf="hotelForm.controls['id'].value != undefined">Editer un hotel</h5>
+                <h5 class="modal-title" id="staticBackdropLabel" *ngIf="hotelForm.controls['id'].value == ''">
+                    Ajouter un hotel</h5>
+                <h5 class="modal-title" id="staticBackdropLabel" *ngIf="hotelForm.controls['id'].value != ''">
+                    Editer un hotel</h5>
                 <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
@@ -76,36 +87,36 @@
                     <div class="form-line mb-4">
                         <label class="form-label">Nom *</label>
                         <input class="form-control" type="text" name="nom" placeholder="Nom de l'hotel" required
-                        formControlName="nom">
+                            formControlName="nom">
                     </div>
                     <div class="form-line mb-4">
                         <label>étoiles *</label>
-                        <input class="form-control" type="number" name="etoiles" placeholder="Nombre d'étoiles de l'hotel" required
-                        formControlName="etoiles" min="1">
+                        <input class="form-control" type="number" name="etoiles"
+                            placeholder="Nombre d'étoiles de l'hotel" required formControlName="etoiles" min="1" max="5">
                     </div>
 
                     <div class="form-line mb-4">
                         <label class="form-label">Adresse *</label>
                         <input class="form-control" type="text" name="adresse" placeholder="Adresse de l'hotel" required
-                        formControlName="adresse">
+                            formControlName="adresse">
                     </div>
 
                     <div class="form-line mb-4">
                         <label class="form-label">Téléphone *</label>
-                        <input class="form-control" type="tel" name="telephone" placeholder="Téléphone de l'hotel" required
-                        formControlName="telephone">
+                        <input class="form-control" type="tel" name="telephone" placeholder="Téléphone de l'hotel"
+                            required formControlName="telephone">
                     </div>
 
                     <div class="form-line mb-4">
                         <label class="form-label">Email *</label>
-                        <input class="form-control" type="email" name="email" placeholder="Votre email" required
-                        formControlName="email">
+                        <input class="form-control" type="email" name="email" placeholder="Email de l'hotel" required
+                            formControlName="email">
                     </div>
 
                     <div class="form-line mb-4">
                         <label class="form-label">Ville *</label>
                         <input class="form-control" type="text" name="ville" placeholder="Ville de l'hotel"
-                        formControlName="ville">
+                            formControlName="ville">
                     </div>
 
                 </div>

@@ -27,10 +27,10 @@ export class HotelService {
   }
 
   update(hotel?:Hotel) : Observable<any>{
-    return this.http.post(environment.backendUri + this.serviceUri + "/" + hotel?.id, hotel, this.config.httpOptions);
+    return this.http.put(environment.backendUri + this.serviceUri + "/" + hotel?.id, hotel, this.config.httpOptions);
   }
 
   delete(id?:number) : Observable<any>{
-    return this.http.delete(environment.backendUri + this.serviceUri+id, this.config.httpOptions);
+    return this.http.delete(environment.backendUri + this.serviceUri+ "/" +id, this.config.httpOptions);
   }
 }

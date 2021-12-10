@@ -23,6 +23,7 @@ export class HotelComponent implements OnInit {
     ville : new FormControl( "", Validators.required)
   });
 
+  arrayStars = new Array(5);
   hotels ?: Array<Hotel>;
   errorMessage = "";
   success: boolean = false;
@@ -75,13 +76,16 @@ export class HotelComponent implements OnInit {
   }
 
   delete(id:number){
-    this.hotelService.delete(id).subscribe({
-      next: (data) => {
-        this.loadAll();
-        this.showSuccess();
-      },
-      error: (err) => { this.showError(err.error.message) }
-    })
+    if (confirm("Êtes vous sur ?"))
+    {
+      this.hotelService.delete(id).subscribe({
+        next: (data) => {
+          this.loadAll();
+          this.showSuccess();
+        },
+        error: (err) => { this.showError(err.error.message) }
+      })
+    }
   }
 
   submit(){

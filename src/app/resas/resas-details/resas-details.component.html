@@ -1,8 +1,5 @@
 <form [formGroup]="resaForm" (submit)="submit()" class="container">
 
-    {{resaForm.value | json}}
-    error : {{errorMessage}}
-
     <h5 class="modal-title" id="exampleModalLabel" *ngIf="resaForm.controls['id']?.value == ''">Ajouter une réservation
     </h5>
     <h5 class="modal-title" id="exampleModalLabel" *ngIf="resaForm.controls['id']?.value != ''">Editer une réservation
@@ -35,7 +32,7 @@
         <label for="client" class="form-label">Client *</label>
         <select name="client" id="client" formControlName="client" required class="form-select"
             [compareWith]="compareClient">
-            <option value="null" disabled>Sélectionner un client</option>
+            <option [ngValue]="null" disabled>Sélectionner un client</option>
             <option *ngFor="let client of clients" [ngValue]="client">
                 {{client.nomComplet}}
             </option>

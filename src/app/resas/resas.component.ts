@@ -55,6 +55,8 @@ export class ResasComponent implements OnInit {
   }
 
   delete(id?:number){
+    if (confirm("Êtes vous sur ?"))
+    {
     this.resaService.delete(id).subscribe({
       next: (data) => {
         this.loadAllResa();
@@ -63,6 +65,7 @@ export class ResasComponent implements OnInit {
       error: (err) => { this.showError(err.error.message) }
       
     })
+  }
   }
 
 }

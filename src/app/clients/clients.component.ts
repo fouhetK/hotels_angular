@@ -42,14 +42,17 @@ export class ClientsComponent implements OnInit {
   }
 
   delete(id:number){
-    this.clientsService.delete(id).subscribe({
-      next: (data) => {
-        this.loadAll();
-        this.showSuccess();
-      },
-      error: (err) => { this.showError(err.error.message) }
-      
-    })
+    if (confirm("Êtes vous sur ?"))
+    {
+      this.clientsService.delete(id).subscribe({
+        next: (data) => {
+          this.loadAll();
+          this.showSuccess();
+        },
+        error: (err) => { this.showError(err.error.message) }
+        
+      })
+    }
   }
 
 }

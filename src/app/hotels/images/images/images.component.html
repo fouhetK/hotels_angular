@@ -1,0 +1,95 @@
+<main class="container">
+
+    <div class="alert alert-success" *ngIf="success">Opération effetuée avec succès</div>
+    <div class="alert alert-danger" *ngIf="errorMessage.length > 0">
+        {{errorMessage}}
+    </div>
+
+    <h1>Liste des photos</h1>
+
+    <button id="addbtn" class="btn btn-primary" (click)="resetImageForm()" data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop">Ajouter une photo</button>
+
+    <div id="no-items-message" class="alert alert-success" *ngIf="images?.length == 0">Aucune photo trouvée</div>
+
+    <div class="container">
+        <div class="row">
+            <div *ngFor="let image of images" class="col-4 mb-3 my-4">
+                <ng-container *ngTemplateOutlet="cart_template; context: {$implicit : image}"></ng-container>
+                <!-- <ng-container *ngTemplateOutlet="cart_template; context: {item : patient, rdvsitem  : rdvsPatient}"></ng-container> -->
+            </div>
+        </div>
+    </div>
+</main>
+
+<ng-template #cart_template let-image>
+    <!-- <ng-template #cart_template let-patient="item"> -->
+    <!-- <ng-template #cart_template let-patient="item" let-rdvs="rdvsitem"> -->
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div class="mr-auto p-2">
+                    <div style="width:150px;height:150px;">
+                        <img src="http://localhost:8080/images/uploads/{{ hotel?.id }}/{{image.path}}" class="img-fluid">
+                    </div>
+                </div>
+                <div class="ml-auto p-2 align-self-center">
+                    <button class="btn btn-secondary btn-sm" (click)="loadById(image.id)" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"><i class="fas fa-pencil-square-o"
+                            aria-hidden="true"></i></button>
+                    <button class="btn btn-danger btn-sm align-middle" (click)="delete(image.id)"><i
+                            class="fas fa-trash" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            <hr>
+            <div class="card-text mt-3">
+                <h2 class="h5">Déscription de l'image</h2>
+                <p>
+                    {{image.description}}
+                </p>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel" *ngIf="imageForm.controls['id']?.value == ''">Ajouter une image</h5>
+                <h5 class="modal-title" id="staticBackdropLabel" *ngIf="imageForm.controls['id']?.value != ''">Editer une image</h5>
+                <button type="button" #closebutton class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <form [formGroup]="imageForm" method="post" enctype="multipart/form-data" (submit)="submit()">
+                <div class="modal-body">
+
+                    <input type="hidden" formControlName="id">
+                    
+                    <input type="hidden" formControlName="hotel">
+
+                    <div class="form-line mb-4">
+                        <label class="form-label">Photo de profil*</label>
+                        <input class="form-control" #fileInput required type="file" name="image">
+                    </div>
+
+                    <div class="mb-5">
+                        <div class="form-line mb-4">
+                            <label class="form-label">Description *</label>
+                            <textarea class="form-control" rows="2" type="text" name="desc"
+                                placeholder="Description de l'image" required formControlName="description"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!checkValide()">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

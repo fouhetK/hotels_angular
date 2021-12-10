@@ -34,6 +34,7 @@
                 <th>Date de début</th>
                 <th>Date de fin</th>
                 <th>Numéro de chambre</th>
+                <th>Bon de réservation</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -46,10 +47,11 @@
                 <td>{{resa.datedeb}}</td>
                 <td>{{resa.datefin}}</td>
                 <td>{{resa.numChambre}}</td>
+                <td><button class="btn btn-primary btn-sm" [routerLink]="['bon' , resa?.id ]">Bon</button></td>
                 <td>
                     <button class="btn btn-secondary btn-sm" [routerLink]="['addedit' , resa?.id ]"><i
                             class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                    <button class="btn btn-danger btn-sm" (click)="delete( resa?.id)"><i class="fa fa-trash-o"
+                    <button class="btn btn-danger btn-sm" (click)="delete( resa?.id)"><i class="fas fa-trash"
                             aria-hidden="true"></i></button>
                 </td>
             </tr>

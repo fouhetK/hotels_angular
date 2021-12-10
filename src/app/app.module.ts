@@ -12,6 +12,8 @@ import { HotelComponent } from './hotels/hotel.component';
 import { ClientDetailComponent } from './clients/client-details/client-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ImagesComponent } from './hotels/images/images/images.component';
+import { BonComponent } from './resas/bon_reservation/bon/bon.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
     ClientsComponent,
     ResasComponent,
     ClientDetailComponent,
-    ResasDetailsComponent
+    ResasDetailsComponent,
+    ImagesComponent,
+    BonComponent
   ],
   imports: [
     BrowserModule,
